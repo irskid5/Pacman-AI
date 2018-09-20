@@ -1,0 +1,56 @@
+PART II - CSC384 A1
+
+Vele Tosevski
+tosevsk2
+1002174657
+Feb. 5, 2018 11:59PM
+
+1)
+
+a).	If pacman is in the corner, we have the following representation: 
+
+			            ________
+						 *>|
+						  *|
+						   |
+	
+Pacman cannot go diagonally so the only places he can go are left and down.  For all corners, this is the case.  So the branching factor for corners is 2.
+
+b).	If Pacman is in the middle, the branching factor is 4.  Look at the following graphic:
+						
+					      * 
+					     *>*
+					      *
+
+Pacman can either go up, down, left, or right, not diagonally.  Hence, the successor function produces 4 successor states.
+
+c).	
+<	*			
+	*	*		
+		*	*	
+			*	*
+				*
+
+As we can see in thes 5x5 matrix above, translating to any NxN matrix, the longest path is the diagonal.  This means that Pacman has to go right or down, them down or right respectively and so on.  That means it must traverse N - 1 nodes along the diagonal to get to the end and must also traverse another N - 1 nodes because of the fact that it cannot go diagonally.
+
+Therefore N - 1 + N - 1 = 2N - 2.  The max depth is 2N - 2.
+
+2.
+
+a).	n = 4^(ctotal/cmin + 1)is the maximum number of open paths when the best solution is found.  4 is the maximum amount of nodes that can be opened at a node.  For example, if the height of tree or depth depending on your use of terminology is N, then 4^N is the amount of paths that you will have by the end of your tree.  You expand one node, that expands to four nodes, which all expand to four nodes each.  Thus its is always 4^(level of tree).  cmax/cmin is the maximum total number of nodes in one optimal path, or in other words the maximum depth of an optimal tree.  So 4^(ctotal/cmin + 1) is therefore the max number of open paths at the end of finding a solution.
+
+b).	ctotal = (log_4(n) - 1)*cmin is basically using algebra from the previous question to solve for ctotal.  It is the lower bound of the cost.  We use cmin instead of cmax to get the lower bound.  The upper bound however is ctotal = (log_4(n) - 1)*cmax.  So the bound is as follows: 
+
+(log_4(n) - 1)*cmin <= ctotal <= (log_4(n) - 1)*cmax 
+
+3.
+
+a).	Yes, running A* will yield an optimal search.
+b).	No, it will not.  The upper bound is 3. 
+c).	Yes, running A* will yield an optimal search.
+
+4.
+
+a).	I would use h1 for smaller game boards up to medium size.  Also for boards with less food and items to pick up.  This limits the amount of processing needed to create the heuristics and use them.  Since h1 is more consuming than h2, it makes sense to use it when there is not much to consume.
+
+b)	I would use h2 for big boards with multiple items and ghosts.  h2 is less heavy than h1 and would be ideal in generating a good path for pacman in bigger more crazy boards.  Since it is faster, it will give a solution that is faster.  However, quality of path will decrease which is better for bigger boards than smaller boards even if it is not good in general.
